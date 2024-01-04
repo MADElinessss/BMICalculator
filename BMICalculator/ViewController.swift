@@ -7,25 +7,38 @@
 
 import UIKit
 
+enum BMIResult {
+    case underweight, normal, overweight, obesity
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet var heightTextField: UITextField!
     @IBOutlet var weightTextField: UITextField!
     @IBOutlet var randomButton: UIButton!
     @IBOutlet var resultButton: UIButton!
+    @IBOutlet var eyeButton: UIButton!
+    @IBOutlet var eyeSlashButton: UIButton!
     
+    @IBOutlet var subTitleLabel: UILabel!
     @IBOutlet var weightTestLabel: UILabel!
     @IBOutlet var heightTestLabel: UILabel!
+    
     var bmi : String = ""
     var errorType : Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nickname = UserDefaults.standard.string(forKey: "nickname") ?? "고객"
+        subTitleLabel.text = "\(nickname) 님의 BMI 지수를 알려드릴게요."
         
         resultButton.layer.cornerRadius = 10
         
-        heightTestLabel.isHidden = false
+        heightTestLabel.isHidden = true
         weightTestLabel.isHidden = true
+        
+        eyeSlashButton.isHidden = true
+        eyeButton.isHidden = false
     }
     
     @IBAction func onRandomButtonTapped(_ sender: UIButton) {
@@ -78,6 +91,11 @@ class ViewController: UIViewController {
     
     @IBAction func keyboardDismiss(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    @IBAction func eyeButtonTapped(_ sender: UIButton) {
+        eyeButton.isHidden.toggle()
+        eyeSlashButton.isHidden.toggle()
     }
     
     func calculateBMI(weight: Int, height: Int) -> String {
