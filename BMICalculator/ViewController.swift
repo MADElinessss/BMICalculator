@@ -17,13 +17,14 @@ class ViewController: UIViewController {
     @IBOutlet var weightTestLabel: UILabel!
     @IBOutlet var heightTestLabel: UILabel!
     var bmi : String = ""
+    var errorType : Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         resultButton.layer.cornerRadius = 10
         
-        heightTestLabel.isHidden = true
+        heightTestLabel.isHidden = false
         weightTestLabel.isHidden = true
     }
     
@@ -33,10 +34,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func heightTextFieldChanged(_ sender: UITextField) {
-        
         if let height = sender.text {
-            // 키의 범위가 나갔다면
-            if Int(height) ?? -1 <= 0 || Int(height) ?? -1 >= 1000 {
+            // 키의 범위 검사
+            if Int(height) ?? errorType <= 0 || Int(height) ?? errorType >= 1000{
                 heightTestLabel.isHidden = false
                 heightTestLabel.textColor = .red
                 heightTestLabel.text = "올바른 키를 다시 입력해주세요."
@@ -48,12 +48,10 @@ class ViewController: UIViewController {
         }
     }
     
-    
     @IBAction func weightTextFieldChanged(_ sender: UITextField) {
-        
         if let weight = sender.text {
             // 몸무게 범위 검사
-            if Int(weight) ?? -1 <= 0 || Int(weight) ?? -1 >= 1000 {
+            if Int(weight) ?? errorType <= 0 || Int(weight) ?? errorType >= 1000 {
                 weightTestLabel.isHidden = false
                 weightTestLabel.textColor = .red
                 weightTestLabel.text = "올바른 몸무게를 다시 입력해주세요."
@@ -66,10 +64,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onResultButtonTapped(_ sender: UIButton) {
-        // 범위 검사
-        
+        // 범위 검사 - nil이 아니라면,
         if let weight = weightTextField.text, let height = heightTextField.text {
-            bmi = calculateBMI(weight: Int(weight) ?? -1, height: Int(height) ?? -1)
+            bmi = calculateBMI(weight: Int(weight) ?? errorType, height: Int(height) ?? errorType)
         }
         
         // MARK: Alert
