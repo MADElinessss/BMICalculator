@@ -82,6 +82,9 @@ class ViewController: UIViewController {
             bmi = calculateBMI(weight: Int(weight) ?? errorType, height: Int(height) ?? errorType)
         }
         
+        UserDefaults.standard.set(weightTextField.text, forKey: "weight")
+        UserDefaults.standard.set(heightTextField.text, forKey: "height")
+        
         // MARK: Alert
         let alert = UIAlertController(title: "당신의 BMI 지수는", message: bmi, preferredStyle: .alert)
         let button = UIAlertAction(title: "확인", style: .cancel)
@@ -96,6 +99,11 @@ class ViewController: UIViewController {
     @IBAction func eyeButtonTapped(_ sender: UIButton) {
         eyeButton.isHidden.toggle()
         eyeSlashButton.isHidden.toggle()
+    }
+    
+    @IBAction func resetButtonTapped(_ sender: UIButton) {
+        heightTextField.text = ""
+        weightTextField.text = ""
     }
     
     func calculateBMI(weight: Int, height: Int) -> String {

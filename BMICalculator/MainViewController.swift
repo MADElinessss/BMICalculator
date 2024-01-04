@@ -11,12 +11,15 @@ class MainViewController: UIViewController {
 
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var nicknameTextField: UITextField!
+    @IBOutlet var profileButton: UIButton!
     @IBOutlet var nicknameTestLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         nicknameTestLabel.isHidden = true
         nextButton.layer.cornerRadius = 10
+        profileButton.layer.cornerRadius = 10
     }
     
     @IBAction func nicknameChanged(_ sender: UITextField) {
